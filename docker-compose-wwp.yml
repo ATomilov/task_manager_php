@@ -1,0 +1,71 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7
+    # volumes:
+    #   - db_data:/var/lib/mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_DATABASE: tm_db
+      MYSQL_USER: task
+      MYSQL_PASSWORD: pass
+    ports:
+    - "9906:3306"
+    networks:
+    - wpsite_lamp
+
+  web:
+    image: php:7.4-rc-apache
+    restart: always
+    container_name: php_web
+    depends_on:
+    - db
+    volumes:
+    - ./php/:/var/www/html/
+    ports:
+    - "8080:80"
+    stdin_open: true
+    tty: true
+    networks:
+    - wpsite_lamp
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    depends_on:
+    - db
+    external_links:
+    - db:mysql
+    ports:
+    - "8081:80"
+    environment:
+      MYSQL_USER: task
+      MYSQL_PASSWORD: pass
+      MYSQL_ROOT_PASSWORD: pass
+      PMA_HOST: db
+    networks:
+    - wpsite_lamp
+
+  wordpress:
+    depends_on:
+    - db
+    image: wordpress:latest
+    ports:
+    - "8082:80"
+    restart: unless-stopped
+    volumes:
+    - ./wp_data/:/var/www/html
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: task
+      WORDPRESS_DB_PASSWORD: pass
+      WORDPRESS_DB_NAME: tm_db
+    networks:
+    - wpsite_lamp
+
+networks:
+  wpsite_lamp:
+# volumes:
+#   db_data:
