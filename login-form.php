@@ -13,16 +13,7 @@
           <div class="columns is-5-tablet is-4-desktop is-3-tablet is-centered">
             <div class="column is-half">
               <form class="box" action="actions/register.php" method="post">
-                <div class="container has-text-centered">Registration</div>
-                <div class="field">
-                  <label class="label">Name</label>
-                  <div class="control has-icons-left">
-                    <input type="text" class="input" placeholder="A Tomilov" name="username" required>
-                    <span class="icon is-small is-left">
-                      <i class="fa fa-user"></i>
-                    </span>
-                  </div>
-                </div>
+                <div class="container has-text-centered">Authorization</div>
                 <div class="field">
                   <label class="label">Email</label>
                   <div class="control has-icons-left">
@@ -46,8 +37,8 @@
                     <input type="checkbox">Remember me</label>
                 </div>
                 <div class="field">
-                  <button class="button is-success" type="submit">Register</button>
-                  <a href="/login-form.php" class="button is-success" type="submit">Sign in</a>
+                  <button class="button is-success" type="submit">Sign in</button>
+                  <a href="/" class="button is-success" type="submit">Register</a>
                 </div>
               </form>
             </div>
