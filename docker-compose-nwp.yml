@@ -17,7 +17,7 @@ services:
       - tm_lamp
 
   web:
-    image: php:7.4-rc-apache
+    image: richarvey/nginx-php-fpm:latest
     restart: always
     container_name: php_web
     depends_on:
